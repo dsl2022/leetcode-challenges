@@ -14,21 +14,20 @@ def removeStones( stones: List[List[int]]) -> int:
                     # print("add an element to the map")                   
                     neignborsMap[(row, col)].append([row_a, col_a])
     print(neignborsMap)
-    removedCounter, visited = 0, set()
+    visited = set()
     answer = 0
     def dfs(node):
         nonlocal removedCounter
         if node in visited or node not in neignborsMap:
             return
         visited.add(node)
-        removedCounter += 1
         for x_i, y_i in neignborsMap[(node[0], node[1])]:
             dfs((x_i, y_i))
     for x,y in stones:
         removedCounter = 0
         dfs((x,y))
         print(' we get ', removedCounter, ' from ', (x,y))
-        answer = max(answer, removedCounter)
+        answer = max(answer, len(visited))
     return answer - 1 if answer > 0 else 0
 
 
